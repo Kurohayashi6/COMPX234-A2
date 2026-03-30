@@ -60,6 +60,8 @@ class ReadersWritersMonitor:
 
             self.active_readers += 1
 
+            print(f"Reader{reader_id} starts reading. Active readers = {self.active_readers}.")
+
     def end_read(self, reader_id: int) -> None:
         """
         Called after a reader finishes reading.
@@ -74,6 +76,8 @@ class ReadersWritersMonitor:
             self.active_readers -= 1
             if self.active_readers == 0:
                 self.condition.notify_all()
+
+            print(f"Reader{reader_id} stops reading. Active readers = {self.active_readers}.")
 
     def start_write(self, writer_id: int) -> None:
         """
@@ -95,6 +99,8 @@ class ReadersWritersMonitor:
             self.waiting_writers -= 1
             self.active_writers += 1
 
+            print(f"Writer{writer_id} starts writing.")
+
     def end_write(self, writer_id: int) -> None:
         """
         Called after a writer finishes writing.
@@ -109,6 +115,8 @@ class ReadersWritersMonitor:
             self.active_writers -= 1
 
             self.condition.notify_all()
+
+            print(f"Writer{writer_id} stops writing.")
 
 # Donot Change this
 class Reader(threading.Thread):
