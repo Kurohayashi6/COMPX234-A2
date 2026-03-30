@@ -71,7 +71,9 @@ class ReadersWritersMonitor:
         """
         with self.condition:
             # TODO: Replace 'pass' with your logic
-            pass
+            self.active_readers -= 1
+            if self.active_readers == 0:
+                self.condition.notify_all()
 
     def start_write(self, writer_id: int) -> None:
         """
