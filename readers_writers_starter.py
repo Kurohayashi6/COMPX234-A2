@@ -60,7 +60,7 @@ class ReadersWritersMonitor:
 
             self.active_readers += 1
 
-            print(f"Reader{reader_id} starts reading. Active readers = {self.active_readers}.")
+            print(f"Reader {reader_id} starts reading. Active readers = {self.active_readers}")
 
     def end_read(self, reader_id: int) -> None:
         """
@@ -77,7 +77,7 @@ class ReadersWritersMonitor:
             if self.active_readers == 0:
                 self.condition.notify_all()
 
-            print(f"Reader{reader_id} stops reading. Active readers = {self.active_readers}.")
+            print(f"Reader {reader_id} stops reading. Active readers = {self.active_readers}")
 
     def start_write(self, writer_id: int) -> None:
         """
@@ -99,7 +99,7 @@ class ReadersWritersMonitor:
             self.waiting_writers -= 1
             self.active_writers += 1
 
-            print(f"Writer{writer_id} starts writing.")
+            print(f"Writer {writer_id} starts writing")
 
     def end_write(self, writer_id: int) -> None:
         """
@@ -116,7 +116,7 @@ class ReadersWritersMonitor:
 
             self.condition.notify_all()
 
-            print(f"Writer{writer_id} stops writing.")
+            print(f"Writer {writer_id} stops writing")
 
 # Donot Change this
 class Reader(threading.Thread):
@@ -177,12 +177,15 @@ def main() -> None:
 
     #TODO: Create at least 3 Reader threads.
     readers = [
-        Reader(reader_id=1, monitor=monitor) for i in range(1,4)
+        Reader(reader_id=1, monitor=monitor),
+        Reader(reader_id=2, monitor=monitor),
+        Reader(reader_id=3, monitor=monitor)
     ]
     
     #TODO: Create at least 2 writer threads.
     writers = [
-        Writer(writer_id=1, monitor=monitor) for i in range(1,3)
+        Writer(writer_id=1, monitor=monitor),
+        Writer(writer_id=2, monitor=monitor)
     ]
 
     all_threads = readers + writers
